@@ -5,13 +5,14 @@ key = 8194
 shutdown = False
 join = False
 
-os.system("clear")
+#os.system("clear")
 
 def receving (name, sock):
     while not shutdown:
         try:
             while True:
                 data, addr = sock.recvfrom(1024)
+#code
                 decrypt = ""; k = False
                 for i in data.decode("utf-8"):
                     if i == ":":
@@ -22,7 +23,7 @@ def receving (name, sock):
                     else:
                         decrypt += chr(ord(i)^key)
                 print(decrypt)
-
+#code
                 time.sleep(0.2)
 
         except:
@@ -31,9 +32,11 @@ def receving (name, sock):
 host = socket.gethostbyname(socket.gethostname())
 port = 0
 
-server = ("192.168.43.33",9090)
+server = ("5.187.5.162",9099)
+#server = ("192.168.43.33",9090)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.setblocking(0)
 
@@ -49,12 +52,12 @@ while shutdown == False:
     else:
         try:
             message = input()
-
+#code
             crypt = ""
             for i in message:
                 crypt += chr(ord(i)^key)
             message = crypt
-
+#code
             if message != "":
                 s.sendto(("[" + alias + "] :: " + message).encode("utf-8"), server)
 
@@ -66,4 +69,3 @@ while shutdown == False:
 
 rT.join()
 s.close()
-
